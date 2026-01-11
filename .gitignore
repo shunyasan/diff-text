@@ -1,0 +1,7 @@
+.next
+node_modules
+tmp
+
+# AsposePDF
+public/AsposePDFforJS.js
+public/AsposePDFforJS.wasm
