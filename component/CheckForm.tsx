@@ -6,7 +6,6 @@ import { convertDocxToPdf, createTmpDir, getPdfByPage } from "@/util/function";
 import {
 	Box,
 	Button,
-	FileInput,
 	Loader,
 	SimpleGrid,
 	Stack,
@@ -21,6 +20,11 @@ type DiffResult = {
 	compare: string;
 };
 
+const MAX_SIZE = 30 * 1024 ** 2; // MB
+const IMAGE_MIME_TYPE = [
+	"application/pdf",
+	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 const CheckFormCmp = () => {
 	const [baseFile, setBaseFile] = useState<File | null>(null);
 	const [compareFile, setCompareFile] = useState<File | null>(null);
@@ -129,7 +133,12 @@ const CheckFormCmp = () => {
 		<>
 			<Stack>
 				<SimpleGrid cols={2} spacing="lg" mt={20}>
-					<Dropzone onDrop={(files) => setBaseFile(files[0])}>
+					<Dropzone
+						onDrop={(files) => setBaseFile(files[0])}
+						maxFiles={1}
+						maxSize={MAX_SIZE}
+						accept={IMAGE_MIME_TYPE}
+					>
 						<Dropzone.Accept>
 							<Loader />
 						</Dropzone.Accept>
@@ -141,7 +150,12 @@ const CheckFormCmp = () => {
 							)}
 						</Dropzone.Idle>
 					</Dropzone>
-					<Dropzone onDrop={(files) => setCompareFile(files[0])}>
+					<Dropzone
+						onDrop={(files) => setCompareFile(files[0])}
+						maxFiles={1}
+						maxSize={MAX_SIZE}
+						accept={IMAGE_MIME_TYPE}
+					>
 						<Dropzone.Accept>
 							<Loader />
 						</Dropzone.Accept>
