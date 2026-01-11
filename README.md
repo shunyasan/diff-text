@@ -30,6 +30,9 @@ npm -v # "11.6.2"が表示される。
 
 ```
 npm i
+# NextStep と表示されるのでPathを通す
+brew install --cask libreoffice
+
 ```
 
 # 4. 起動
