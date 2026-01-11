@@ -10,32 +10,19 @@ export const theme = createTheme({
 		xl: "90em",
 	},
 	components: {
-		Title: { defaultProps: { fz: { base: 18, xs: 22 } } },
-		Button: { defaultProps: { color: "orange" } },
-		ActionIcon: { defaultProps: { color: "orange" } },
-		Anchor: { defaultProps: { fw: "bold", td: "none" } },
+		// Title: { defaultProps: { fz: { base: 18, xs: 22 } } },
+		// ActionIcon: { defaultProps: { color: "red" } },
+		// Anchor: { defaultProps: { fw: "bold", td: "none" } },
+		Button: { defaultProps: { color: "#e8382f" } },
 		Text: { defaultProps: { c: "#333", fz: { base: 15, xs: 16 } } },
 		ListItem: { defaultProps: { c: "#333", fz: { base: 15, xs: 16 } } },
-		Modal: {
-			defaultProps: {
-				removeScrollProps: { allowPinchZoom: true }, // スマホでのズームを許可
-			},
-		},
+		// Modal: {
+		// 	defaultProps: {
+		// 		removeScrollProps: { allowPinchZoom: true }, // スマホでのズームを許可
+		// 	},
+		// },
 	},
 });
-
-export const ICON_COLOR = {
-	red: "#e20000",
-	green: "#67c61e",
-	orange: "#ff9500",
-	purple: "#a400bd",
-	brawn: "#c39200",
-	blue: "#0034d2",
-	gray: "#999999",
-	pink: "#e511d7",
-} as const;
-
-export const STRIPE_COLOR = "#6772e5";
 
 export const getMantineColor = (color: string, shade?: number) =>
 	`var(--mantine-color-${color}-${shade || 6})`;

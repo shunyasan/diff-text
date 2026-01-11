@@ -1,5 +1,6 @@
 "use client";
 
+import { CloudUpload } from "lucide-react";
 import { Dropzone } from "@mantine/dropzone";
 import { convertPdfToText } from "@/util/function___";
 import { convertDocxToPdf, createTmpDir, getPdfByPage } from "@/util/function";
@@ -10,6 +11,7 @@ import {
 	SimpleGrid,
 	Stack,
 	Text,
+	ThemeIcon,
 	Title,
 } from "@mantine/core";
 import * as Diff from "diff";
@@ -129,44 +131,66 @@ const CheckFormCmp = () => {
 		return true;
 	}, [baseFile, compareFile, isLoading]);
 
+	const DropFileUi = () => {
+		return (
+			<Stack justify="center" align="center" h={400}>
+				{/* <ThemeIcon c={"red.4"} variant="light" size={60} radius={60}> */}
+				<CloudUpload size={60} color="red" />
+				{/* </ThemeIcon> */}
+				<Text fw={"bold"}>ここにファイルをドラッグ＆ドロップ</Text>
+				<Text>または</Text>
+				<Text p={"10px 20px"} c={"red"} bd={"1.5px solid red"} bdrs={20}>
+					ファイルを選択
+				</Text>
+				<Stack gap={5} align="center">
+					<Text fz={12}>
+						アップロードできるファイルの種類：Word（.doc，.docx）もしくはPDF（.pdf）
+					</Text>
+					<Text fz={12}>最大アップロードファイルサイズ：Word5MB、PDF10MB</Text>
+				</Stack>
+			</Stack>
+		);
+	};
 	return (
 		<>
 			<Stack>
 				<SimpleGrid cols={2} spacing="lg" mt={20}>
-					<Dropzone
-						onDrop={(files) => setBaseFile(files[0])}
-						maxFiles={1}
-						maxSize={MAX_SIZE}
-						accept={IMAGE_MIME_TYPE}
-					>
-						<Dropzone.Accept>
-							<Loader />
-						</Dropzone.Accept>
-						<Dropzone.Idle>
-							{baseFile ? (
-								<Text>{baseFile.name}</Text>
-							) : (
-								<Text c={"dimmed"}>比較元のファイル</Text>
-							)}
-						</Dropzone.Idle>
-					</Dropzone>
-					<Dropzone
-						onDrop={(files) => setCompareFile(files[0])}
-						maxFiles={1}
-						maxSize={MAX_SIZE}
-						accept={IMAGE_MIME_TYPE}
-					>
-						<Dropzone.Accept>
-							<Loader />
-						</Dropzone.Accept>
-						<Dropzone.Idle>
-							{compareFile ? (
-								<Text>{compareFile.name}</Text>
-							) : (
-								<Text c={"dimmed"}>比較先のファイル</Text>
-							)}
-						</Dropzone.Idle>
-					</Dropzone>
+					<Stack>
+						<Text fw={"bold"}>比較元のファイル</Text>
+						<Dropzone
+							onDrop={(files) => setBaseFile(files[0])}
+							maxFiles={1}
+							maxSize={MAX_SIZE}
+							accept={IMAGE_MIME_TYPE}
+							h={400}
+							bg={"red.0"}
+						>
+							<Dropzone.Accept>
+								<Loader />
+							</Dropzone.Accept>
+							<Dropzone.Idle>
+								{baseFile ? <Text>{baseFile.name}</Text> : <DropFileUi />}
+							</Dropzone.Idle>
+						</Dropzone>
+					</Stack>
+					<Stack>
+						<Text fw={"bold"}>比較先のファイル</Text>
+						<Dropzone
+							onDrop={(files) => setCompareFile(files[0])}
+							maxFiles={1}
+							maxSize={MAX_SIZE}
+							accept={IMAGE_MIME_TYPE}
+							h={400}
+							bg={"red.0"}
+						>
+							<Dropzone.Accept>
+								<Loader />
+							</Dropzone.Accept>
+							<Dropzone.Idle>
+								{compareFile ? <Text>{compareFile.name}</Text> : <DropFileUi />}
+							</Dropzone.Idle>
+						</Dropzone>
+					</Stack>
 				</SimpleGrid>
 				<Button
 					size="lg"
