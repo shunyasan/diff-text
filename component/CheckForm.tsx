@@ -139,7 +139,14 @@ const CheckFormCmp = () => {
 				{/* </ThemeIcon> */}
 				<Text fw={"bold"}>ここにファイルをドラッグ＆ドロップ</Text>
 				<Text>または</Text>
-				<Text p={"10px 20px"} c={"red"} bd={"1.5px solid red"} bdrs={20}>
+				<Text
+					fz={14}
+					fw="bold"
+					p={"10px 20px"}
+					c={"red"}
+					bd={"1.5px solid red"}
+					bdrs={20}
+				>
 					ファイルを選択
 				</Text>
 				<Stack gap={5} align="center">
