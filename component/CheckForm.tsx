@@ -1,13 +1,16 @@
 "use client";
 
+import { Dropzone } from "@mantine/dropzone";
 import { convertPdfToText } from "@/util/function___";
 import { convertDocxToPdf, createTmpDir, getPdfByPage } from "@/util/function";
 import {
 	Box,
 	Button,
 	FileInput,
+	Loader,
 	SimpleGrid,
 	Stack,
+	Text,
 	Title,
 } from "@mantine/core";
 import * as Diff from "diff";
@@ -126,12 +129,30 @@ const CheckFormCmp = () => {
 		<>
 			<Stack>
 				<SimpleGrid cols={2} spacing="lg" mt={20}>
-					<FileInput label="比較元" value={baseFile} onChange={setBaseFile} />
-					<FileInput
-						label="比較先"
-						value={compareFile}
-						onChange={setCompareFile}
-					/>
+					<Dropzone onDrop={(files) => setBaseFile(files[0])}>
+						<Dropzone.Accept>
+							<Loader />
+						</Dropzone.Accept>
+						<Dropzone.Idle>
+							{baseFile ? (
+								<Text>{baseFile.name}</Text>
+							) : (
+								<Text c={"dimmed"}>比較元のファイル</Text>
+							)}
+						</Dropzone.Idle>
+					</Dropzone>
+					<Dropzone onDrop={(files) => setCompareFile(files[0])}>
+						<Dropzone.Accept>
+							<Loader />
+						</Dropzone.Accept>
+						<Dropzone.Idle>
+							{compareFile ? (
+								<Text>{compareFile.name}</Text>
+							) : (
+								<Text c={"dimmed"}>比較先のファイル</Text>
+							)}
+						</Dropzone.Idle>
+					</Dropzone>
 				</SimpleGrid>
 				<Button
 					size="lg"
