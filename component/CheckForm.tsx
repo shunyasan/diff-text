@@ -160,7 +160,7 @@ const CheckFormCmp = () => {
 	};
 	return (
 		<>
-			<Stack>
+			<Stack gap={40}>
 				<SimpleGrid cols={2} spacing="lg" mt={20}>
 					<Stack>
 						<Text fw={"bold"}>比較元のファイル</Text>

@@ -102,7 +102,22 @@ export const convertDocxToPdf = async (
 };
 
 export const getPdfByPage = async (arrayBuffer: ArrayBuffer) => {
-	const pdfDoc = await PDFDocument.load(arrayBuffer);
+	const fileName = randomUUID();
+	const filePath = `tmp/${fileName}.pdf`;
+	const outputPath = `tmp/${fileName}_out.pdf`;
+
+	fs.writeFileSync(filePath, Buffer.from(arrayBuffer));
+	try {
+		execSync(`qpdf --decrypt ${filePath} ${outputPath}`);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (e: any) {
+		if (!e?.stderr?.includes("qpdf: operation succeeded with warnings")) {
+			throw e;
+		}
+	}
+
+	const decryptBuffer = fs.readFileSync(outputPath);
+	const pdfDoc = await PDFDocument.load(decryptBuffer);
 	const pageCount = pdfDoc.getPageCount();
 	const pageBuffers: ArrayBuffer[] = [];
 	for (let i = 0; i < pageCount; i++) {
