@@ -68,11 +68,13 @@ brew install qpdf
 
 # 6. 起動
 
+権限を以下に変更する
+
 ```
-cd ~/Program/diff-text
-npm i
-npm run dev
+chmod 744 start.command
 ```
+
+start.command をクリックする
 
 # 7. local にアクセス
 
