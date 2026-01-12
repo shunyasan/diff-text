@@ -26,21 +26,34 @@ node -v # "v24.12.0"が表示される。
 npm -v # "11.6.2"が表示される。
 ```
 
-# 3. package を install
+# 3. brew install
 
 ```
-npm i
-# NextStep と表示されるのでPathを通す
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# install後に表示される「NextStep」も実行する
+```
+
+# 4. tool をインストール
+
+```
+# docxの解析
 brew install --cask libreoffice
 
+# pdfのdecript
+brew install qpdf
 ```
 
-# 4. 起動
+# 5. 起動
 
 ```
+cd ~/Program/diff-text
+npm i
 npm run dev
 ```
 
-# 5. local にアクセス
+# 6. local にアクセス
 
 http://localhost:3000/
+
+表示されない場合は起動(手順 5) を再実行
