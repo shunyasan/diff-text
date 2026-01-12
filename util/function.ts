@@ -61,7 +61,11 @@ export const convertDocxToPdf = async (
 	fs.writeFileSync(filePath, Buffer.from(approvedDocx));
 
 	// pdfに変換
-	execSync(`soffice --headless --convert-to pdf --outdir tmp ${filePath} `);
+	try {
+		execSync(`soffice --headless --convert-to pdf --outdir tmp ${filePath} `);
+	} catch {
+		throw new Error("PDF変換中にエラーが発生しました");
+	}
 	const pdfPath = filePath.replace(/\.docx?$/, ".pdf");
 	const pdfBuffer__ = fs.readFileSync(pdfPath);
 	// 削除
@@ -101,7 +105,7 @@ export const convertDocxToPdf = async (
 	// return pdfBuffer.buffer as ArrayBuffer;
 };
 
-export const getPdfByPage = async (arrayBuffer: ArrayBuffer) => {
+const decryptPdf = (arrayBuffer: ArrayBuffer) => {
 	const fileName = randomUUID();
 	const filePath = `tmp/${fileName}.pdf`;
 	const outputPath = `tmp/${fileName}_out.pdf`;
@@ -117,6 +121,15 @@ export const getPdfByPage = async (arrayBuffer: ArrayBuffer) => {
 	}
 
 	const decryptBuffer = fs.readFileSync(outputPath);
+
+	fs.unlinkSync(filePath);
+	fs.unlinkSync(outputPath);
+	return decryptBuffer.buffer as ArrayBuffer;
+};
+
+export const getPdfByPage = async (arrayBuffer: ArrayBuffer) => {
+	const decryptBuffer = decryptPdf(arrayBuffer);
+
 	const pdfDoc = await PDFDocument.load(decryptBuffer);
 	const pageCount = pdfDoc.getPageCount();
 	const pageBuffers: ArrayBuffer[] = [];

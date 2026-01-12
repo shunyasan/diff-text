@@ -1,18 +1,18 @@
 "use server";
 
 import AsposePdf from "asposepdfnodejs";
-import { writeFile } from "fs/promises";
 import { randomUUID } from "crypto";
 import fs from "fs";
 
 const AsposePdfModule = await AsposePdf();
 
+// ファイルは作成された状態でpathを渡す
 export const convertPdfToText = async (arrayBuffer) => {
 	const filePath = `tmp/${randomUUID()}.pdf`;
-	await writeFile(filePath, Buffer.from(arrayBuffer));
+	fs.writeFileSync(filePath, Buffer.from(arrayBuffer));
 	const textResult = await AsposePdfModule.AsposePdfExtractText(filePath);
 	fs.unlinkSync(filePath);
-	//
+
 	const text = textResult.extractText.trim();
 	const pageNumRegex = /[\s\t]{10,}\d+$/;
 	if (pageNumRegex.test(text)) {
