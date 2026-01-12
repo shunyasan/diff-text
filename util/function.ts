@@ -112,7 +112,7 @@ export const getPdfByPage = async (arrayBuffer: ArrayBuffer) => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (e: any) {
 		if (!e?.stderr?.includes("qpdf: operation succeeded with warnings")) {
-			throw e;
+			throw new Error("解析できないロックのファイルです");
 		}
 	}
 
