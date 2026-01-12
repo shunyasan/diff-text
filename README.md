@@ -26,7 +26,29 @@ node -v # "v24.12.0"が表示される。
 npm -v # "11.6.2"が表示される。
 ```
 
-# 3. brew install
+# 3. PATH を入れる
+
+```
+vi ~/.zshrc
+```
+
+エディターが開いたら以下を貼り付け
+
+```
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+```
+
+esc キーを押してから:wq を入力して enter キー
+
+表示が戻ったら、以下を実行
+
+```
+source ~/.zshrc
+```
+
+# 4. brew install
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -34,7 +56,7 @@ npm -v # "11.6.2"が表示される。
 # install後に表示される「NextStep」も実行する
 ```
 
-# 4. tool をインストール
+# 5. tool をインストール
 
 ```
 # docxの解析
@@ -44,7 +66,7 @@ brew install --cask libreoffice
 brew install qpdf
 ```
 
-# 5. 起動
+# 6. 起動
 
 ```
 cd ~/Program/diff-text
@@ -52,8 +74,8 @@ npm i
 npm run dev
 ```
 
-# 6. local にアクセス
+# 7. local にアクセス
 
 http://localhost:3000/
 
-表示されない場合は起動(手順 5) を再実行
+表示されない場合は起動の手順を再実行
